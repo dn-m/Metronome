@@ -4,6 +4,6 @@ github "dn-m/Timeline"
 github "dn-m/Rhythm"
 github "dn-m/MetronomeController"
 
-github "jsbean/Yams" == 0.3.3 
-github "jsbean/AudioKit" == 3.5.5
-github "jsbean/Alamofire" == 4.4.0
+github "jpsim/Yams" == 0.3.2
+github "audioKit/AudioKit" == 3.6
+github "Alamofire/Alamofire"

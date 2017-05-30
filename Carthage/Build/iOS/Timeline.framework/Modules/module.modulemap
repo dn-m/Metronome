@@ -1,0 +1,10 @@
+framework module Timeline {
+  umbrella header "Timeline.h"
+
+  export *
+  module * { export * }
+}
+
+module Timeline.Swift {
+    header "Timeline-Swift.h"
+}
