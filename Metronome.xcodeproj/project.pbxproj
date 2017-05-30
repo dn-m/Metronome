@@ -18,6 +18,8 @@
 		072239991EDDD6CE002E3418 /* PingLow.wav in Resources */ = {isa = PBXBuildFile; fileRef = 072239971EDDD6CE002E3418 /* PingLow.wav */; };
 		0722399C1EDDD6FC002E3418 /* LogicHigh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0722399A1EDDD6FC002E3418 /* LogicHigh.wav */; };
 		0722399D1EDDD6FC002E3418 /* LogicLow.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0722399B1EDDD6FC002E3418 /* LogicLow.wav */; };
+		0722399F1EDDE157002E3418 /* ScoreParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0722399E1EDDE157002E3418 /* ScoreParserTests.swift */; };
+		072239A21EDDE1EA002E3418 /* ScoreParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072239A11EDDE1EA002E3418 /* ScoreParser.swift */; };
 		072C0D041EDD5622002306BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C0D031EDD5622002306BF /* AppDelegate.swift */; };
 		072C0D0B1EDD5622002306BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 072C0D0A1EDD5622002306BF /* Assets.xcassets */; };
 		072C0D0E1EDD5622002306BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 072C0D0C1EDD5622002306BF /* LaunchScreen.storyboard */; };
@@ -83,6 +85,8 @@
 		072239971EDDD6CE002E3418 /* PingLow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PingLow.wav; sourceTree = "<group>"; };
 		0722399A1EDDD6FC002E3418 /* LogicHigh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = LogicHigh.wav; sourceTree = "<group>"; };
 		0722399B1EDDD6FC002E3418 /* LogicLow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = LogicLow.wav; sourceTree = "<group>"; };
+		0722399E1EDDE157002E3418 /* ScoreParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreParserTests.swift; sourceTree = "<group>"; };
+		072239A11EDDE1EA002E3418 /* ScoreParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreParser.swift; sourceTree = "<group>"; };
 		072C0D001EDD5622002306BF /* Metronome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metronome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		072C0D031EDD5622002306BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		072C0D0A1EDD5622002306BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -175,6 +179,14 @@
 			name = Assets;
 			sourceTree = "<group>";
 		};
+		072239A01EDDE1DB002E3418 /* Score */ = {
+			isa = PBXGroup;
+			children = (
+				072239A11EDDE1EA002E3418 /* ScoreParser.swift */,
+			);
+			name = Score;
+			sourceTree = "<group>";
+		};
 		072C0CF71EDD5622002306BF = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +209,7 @@
 		072C0D021EDD5622002306BF /* Metronome */ = {
 			isa = PBXGroup;
 			children = (
+				072239A01EDDE1DB002E3418 /* Score */,
 				0722398A1EDDD43A002E3418 /* Audio */,
 				072239891EDD6D93002E3418 /* View Controllers */,
 				072C0D031EDD5622002306BF /* AppDelegate.swift */,
@@ -211,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				072C0D181EDD5622002306BF /* MetronomeTests.swift */,
+				0722399E1EDDE157002E3418 /* ScoreParserTests.swift */,
 				072C0D1A1EDD5622002306BF /* Info.plist */,
 			);
 			path = MetronomeTests;
@@ -351,6 +365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				072239A21EDDE1EA002E3418 /* ScoreParser.swift in Sources */,
 				072239881EDD6D72002E3418 /* ScoreMetronomeViewController.swift in Sources */,
 				072239821EDD6C60002E3418 /* MetronomeSelectorTabBarController.swift in Sources */,
 				072239901EDDD549002E3418 /* Click.swift in Sources */,
@@ -365,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				072C0D191EDD5622002306BF /* MetronomeTests.swift in Sources */,
+				0722399F1EDDE157002E3418 /* ScoreParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +545,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = F8LCL8SXLX;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/TutschkuKit",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MetronomeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bean.MetronomeTests;
@@ -544,6 +566,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = F8LCL8SXLX;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/TutschkuKit",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = MetronomeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bean.MetronomeTests;
