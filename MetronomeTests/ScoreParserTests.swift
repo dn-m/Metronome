@@ -57,7 +57,6 @@ class ScoreParserTests: XCTestCase {
                 Meter(9,16),
                 Meter(13,128)
             ]
-        )
-        
+        ) 
     }
 }

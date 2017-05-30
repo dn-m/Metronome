@@ -44,8 +44,6 @@ class ScoreParser {
         return Meter(beats, subdivision)
     }
     
-    // TODO: Meter with multiplier
-    
     /// Meters to be created during the parsing process
     internal var meters: [Meter] = []
     
@@ -97,8 +95,6 @@ class ScoreParser {
             // 4/4:
             // tempo:
         }
-        
-        
     }
     
     func parseMeterOneOrMany(_ string: String) throws {
