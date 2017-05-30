@@ -18,7 +18,7 @@ class ScoreParserTests: XCTestCase {
         let expected = [Meter(4,4), Meter(9,16), Meter(13,128)]
         
         zip(strings, expected).forEach { string, meter in
-            XCTAssertEqual(try! ScoreParser.parseMeter(string), meter)
+            XCTAssertEqual(try! parseMeter(string), meter)
         }
     }
     
@@ -65,6 +65,18 @@ class ScoreParserTests: XCTestCase {
         let yaml = try! Yams.load(yaml: yamlString) as Any
         let scoreParser = try! ScoreParser(yaml: yaml)
         let meterStructure = try! scoreParser.parse()
+        // TODO: Assert
+    }
+    
+    func testParseMeterWithOffsetTempoBeats() {
+        let yamlString = "- 4/4:\n  tempo_change: 30\n- 3/4:\n  - 2:\n    tempo: 90"
+        let yaml = try! Yams.load(yaml: yamlString) as Any
+        let scoreParser = try! ScoreParser(yaml: yaml)
+        let meterStructure = try! scoreParser.parse()
         print(meterStructure)
+    }
+    
+    func testParseMeterWithOffsetTempoMetricalDuration() {
+        
     }
 }
