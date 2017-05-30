@@ -156,7 +156,7 @@ class ScoreParser {
         
         switch yaml {
             
-        // Declarations of a single meter (e.g., 4/4) or a count of meters (e.g., 4/4 * 8)
+        // Declarations of a single meter (e.g., 4/4) or a count of meters (e.g., 4/4 x 8)
         // without tempo changes
         case let meter as String:
             try parseMeterOneOrMany(meter)
