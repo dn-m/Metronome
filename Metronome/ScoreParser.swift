@@ -128,7 +128,6 @@ class ScoreParser {
             
             switch key {
             case "tempo":
-                print("tempo on downbeat: \(key); type: \(type(of: value))")
                 
                 var beatsPerMinute: Double? {
                     switch value {
