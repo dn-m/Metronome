@@ -109,7 +109,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		072C0CF71EDD5622002306BF = {
+		0722397C1EDD68B8002E3418 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				072C0D241EDD619E002306BF /* Alamofire.framework */,
@@ -120,6 +120,14 @@
 				072C0D291EDD619E002306BF /* Rhythm.framework */,
 				072C0D2A1EDD619E002306BF /* Timeline.framework */,
 				072C0D2B1EDD619E002306BF /* Yams.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		072C0CF71EDD5622002306BF = {
+			isa = PBXGroup;
+			children = (
+				0722397C1EDD68B8002E3418 /* Frameworks */,
 				072C0D021EDD5622002306BF /* Metronome */,
 				072C0D171EDD5622002306BF /* MetronomeTests */,
 				072C0D011EDD5622002306BF /* Products */,
@@ -512,6 +520,7 @@
 				072C0D1F1EDD5622002306BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		072C0D201EDD5622002306BF /* Build configuration list for PBXNativeTarget "MetronomeTests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +529,7 @@
 				072C0D221EDD5622002306BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

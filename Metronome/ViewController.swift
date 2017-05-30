@@ -7,18 +7,50 @@
 //
 
 import UIKit
+import Collections
+import ArithmeticTools
+import Rhythm
+import Timeline
+import MetronomeController
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let timeline = Timeline.metronome(tempo: Tempo(78)) {
+            self.blink()
+        }
+        
+        timeline.start()
+    }
+    
+    func blink() {
+        
+        print("blink")
+        on()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.off()
+        }
+    }
+    
+    func on() {
+        
+        DispatchQueue.main.async {
+            self.view.layer.backgroundColor = UIColor.black.cgColor
+        }
+    }
+    
+    func off() {
+        
+        DispatchQueue.main.async {
+            self.view.layer.backgroundColor = UIColor.white.cgColor
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
