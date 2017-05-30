@@ -31,6 +31,33 @@ class ScoreParserTests: XCTestCase {
     func testParseMeters() {
         let yamlString = "- 4/4\n- 9/16\n- 13/128"
         let yaml = try! Yams.load(yaml: yamlString) as Any
+        let scoreParser = try! ScoreParser(yaml: yaml)
+        let _ = try! scoreParser.parse()
+        XCTAssertEqual(scoreParser.meters, [Meter(4,4), Meter(9,16), Meter(13,128)])
+    }
+    
+    func testParseMetersMany() {
+        let yamlString = "- 4/4\n- 9/16 x 10 \n- 13/128"
+        let yaml = try! Yams.load(yaml: yamlString) as Any
+        let scoreParser = try! ScoreParser(yaml: yaml)
+        let _ = try! scoreParser.parse()
+        XCTAssertEqual(
+            scoreParser.meters,
+            [
+                Meter(4,4),
+                Meter(9,16),
+                Meter(9,16),
+                Meter(9,16),
+                Meter(9,16),
+                Meter(9,16),
+                Meter(9,16),
+                Meter(9,16),
+                Meter(9,16),
+                Meter(9,16),
+                Meter(9,16),
+                Meter(13,128)
+            ]
+        )
         
     }
 }
