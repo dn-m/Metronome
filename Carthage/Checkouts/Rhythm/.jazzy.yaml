@@ -1,6 +1,0 @@
-min_acl: public
-clean: true
-skip_undocumented: true
-github_url: https://github.com/dn-m/Rhythm
-output: dn-m.github.io/Rhythm
-theme: fullwidth
