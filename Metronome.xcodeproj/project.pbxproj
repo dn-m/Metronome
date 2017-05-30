@@ -13,6 +13,22 @@
 		072C0D0B1EDD5622002306BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 072C0D0A1EDD5622002306BF /* Assets.xcassets */; };
 		072C0D0E1EDD5622002306BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 072C0D0C1EDD5622002306BF /* LaunchScreen.storyboard */; };
 		072C0D191EDD5622002306BF /* MetronomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C0D181EDD5622002306BF /* MetronomeTests.swift */; };
+		072C0D2C1EDD619E002306BF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D241EDD619E002306BF /* Alamofire.framework */; };
+		072C0D2D1EDD619E002306BF /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D241EDD619E002306BF /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		072C0D2E1EDD619E002306BF /* ArithmeticTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D251EDD619E002306BF /* ArithmeticTools.framework */; };
+		072C0D2F1EDD619E002306BF /* ArithmeticTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D251EDD619E002306BF /* ArithmeticTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		072C0D301EDD619E002306BF /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D261EDD619E002306BF /* AudioKit.framework */; };
+		072C0D311EDD619E002306BF /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D261EDD619E002306BF /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		072C0D321EDD619E002306BF /* Collections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D271EDD619E002306BF /* Collections.framework */; };
+		072C0D331EDD619E002306BF /* Collections.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D271EDD619E002306BF /* Collections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		072C0D341EDD619E002306BF /* MetronomeController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D281EDD619E002306BF /* MetronomeController.framework */; };
+		072C0D351EDD619E002306BF /* MetronomeController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D281EDD619E002306BF /* MetronomeController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		072C0D361EDD619E002306BF /* Rhythm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D291EDD619E002306BF /* Rhythm.framework */; };
+		072C0D371EDD619E002306BF /* Rhythm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D291EDD619E002306BF /* Rhythm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		072C0D381EDD619E002306BF /* Timeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D2A1EDD619E002306BF /* Timeline.framework */; };
+		072C0D391EDD619E002306BF /* Timeline.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D2A1EDD619E002306BF /* Timeline.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		072C0D3A1EDD619E002306BF /* Yams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D2B1EDD619E002306BF /* Yams.framework */; };
+		072C0D3B1EDD619E002306BF /* Yams.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072C0D2B1EDD619E002306BF /* Yams.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +41,27 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		072C0D3C1EDD619F002306BF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				072C0D351EDD619E002306BF /* MetronomeController.framework in Embed Frameworks */,
+				072C0D331EDD619E002306BF /* Collections.framework in Embed Frameworks */,
+				072C0D391EDD619E002306BF /* Timeline.framework in Embed Frameworks */,
+				072C0D371EDD619E002306BF /* Rhythm.framework in Embed Frameworks */,
+				072C0D3B1EDD619E002306BF /* Yams.framework in Embed Frameworks */,
+				072C0D311EDD619E002306BF /* AudioKit.framework in Embed Frameworks */,
+				072C0D2F1EDD619E002306BF /* ArithmeticTools.framework in Embed Frameworks */,
+				072C0D2D1EDD619E002306BF /* Alamofire.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		072C0D001EDD5622002306BF /* Metronome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metronome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		072C0D031EDD5622002306BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +73,14 @@
 		072C0D141EDD5622002306BF /* MetronomeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetronomeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		072C0D181EDD5622002306BF /* MetronomeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeTests.swift; sourceTree = "<group>"; };
 		072C0D1A1EDD5622002306BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		072C0D241EDD619E002306BF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		072C0D251EDD619E002306BF /* ArithmeticTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ArithmeticTools.framework; path = Carthage/Build/iOS/ArithmeticTools.framework; sourceTree = "<group>"; };
+		072C0D261EDD619E002306BF /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = Carthage/Build/iOS/AudioKit.framework; sourceTree = "<group>"; };
+		072C0D271EDD619E002306BF /* Collections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collections.framework; path = Carthage/Build/iOS/Collections.framework; sourceTree = "<group>"; };
+		072C0D281EDD619E002306BF /* MetronomeController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetronomeController.framework; path = Carthage/Build/iOS/MetronomeController.framework; sourceTree = "<group>"; };
+		072C0D291EDD619E002306BF /* Rhythm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rhythm.framework; path = Carthage/Build/iOS/Rhythm.framework; sourceTree = "<group>"; };
+		072C0D2A1EDD619E002306BF /* Timeline.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Timeline.framework; path = Carthage/Build/iOS/Timeline.framework; sourceTree = "<group>"; };
+		072C0D2B1EDD619E002306BF /* Yams.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Yams.framework; path = Carthage/Build/iOS/Yams.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +88,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				072C0D341EDD619E002306BF /* MetronomeController.framework in Frameworks */,
+				072C0D321EDD619E002306BF /* Collections.framework in Frameworks */,
+				072C0D381EDD619E002306BF /* Timeline.framework in Frameworks */,
+				072C0D361EDD619E002306BF /* Rhythm.framework in Frameworks */,
+				072C0D3A1EDD619E002306BF /* Yams.framework in Frameworks */,
+				072C0D301EDD619E002306BF /* AudioKit.framework in Frameworks */,
+				072C0D2E1EDD619E002306BF /* ArithmeticTools.framework in Frameworks */,
+				072C0D2C1EDD619E002306BF /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +112,14 @@
 		072C0CF71EDD5622002306BF = {
 			isa = PBXGroup;
 			children = (
+				072C0D241EDD619E002306BF /* Alamofire.framework */,
+				072C0D251EDD619E002306BF /* ArithmeticTools.framework */,
+				072C0D261EDD619E002306BF /* AudioKit.framework */,
+				072C0D271EDD619E002306BF /* Collections.framework */,
+				072C0D281EDD619E002306BF /* MetronomeController.framework */,
+				072C0D291EDD619E002306BF /* Rhythm.framework */,
+				072C0D2A1EDD619E002306BF /* Timeline.framework */,
+				072C0D2B1EDD619E002306BF /* Yams.framework */,
 				072C0D021EDD5622002306BF /* Metronome */,
 				072C0D171EDD5622002306BF /* MetronomeTests */,
 				072C0D011EDD5622002306BF /* Products */,
@@ -106,6 +167,8 @@
 				072C0CFC1EDD5622002306BF /* Sources */,
 				072C0CFD1EDD5622002306BF /* Frameworks */,
 				072C0CFE1EDD5622002306BF /* Resources */,
+				072C0D231EDD5A30002306BF /* ShellScript */,
+				072C0D3C1EDD619F002306BF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -195,6 +258,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		072C0D231EDD5A30002306BF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Collections.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ArithmeticTools.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Timeline.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Rhythm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Yams.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AudioKit.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		072C0CFC1EDD5622002306BF /* Sources */ = {
@@ -344,8 +430,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = F8LCL8SXLX;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Metronome/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(SRCROOT)/Carthage/Build/iOS @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bean.Metronome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -357,8 +449,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = F8LCL8SXLX;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Metronome/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(SRCROOT)/Carthage/Build/iOS @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bean.Metronome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
