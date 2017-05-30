@@ -19,94 +19,6 @@ class ScoreParser {
         case illFormedMeter(String)
         case illFormedTempo(Any)
     }
-
-    /// Creates `Meter` value with the given `string`. 
-    ///
-    /// The string must be in the format: `beats / subdivision`.
-    ///
-    ///     3/4 -> Meter(3,4)
-    ///     12/13 -> fatalError
-    ///     3,4 -> Error.illFormedMeter
-    ///
-    ///
-    /// - Returns: Meter value
-    /// - Throws: ScoreParser.Error
-    /// - Warning: The Meter initializer will crash if given a non-power-of-two subdivision.
-    static func parseMeter(_ string: String) throws -> Meter {
-        
-        let components = string.components(separatedBy: "/")
-        
-        guard
-            let beatsString = components[safe: 0],
-            let subdivisionString = components[safe: 1],
-            let beats = Int(beatsString),
-            let subdivision = Int(subdivisionString)
-        else {
-            throw Error.illFormedMeter(string)
-        }
-        
-        return Meter(beats, subdivision)
-    }
-    
-    // TODO: Rename to findMeter?
-    static func extractMeter(from yaml: [String: Any]) -> Meter? {
-        
-        for (key, _) in yaml {
-            if let meter = try? parseMeter(key) {
-                return meter
-            }
-        }
-        
-        return nil
-    }
-    
-    // TODO: Rename to findTempo?
-    static func extractTempo(from yaml: [String: Any], subdivision: Subdivision)
-        throws -> (Tempo, Bool)?
-    {
-        
-        for (key, value) in yaml where key == "tempo" || key == "tempo_change" {
-        
-            var bpm: Double? {
-                switch value {
-                case let double as Double:
-                    return double
-                case let float as Float:
-                    return Double(float)
-                case let int as Int:
-                    return Double(int)
-                case let string as String:
-                    return Double(string)
-                default:
-                    return nil
-                }
-            }
-            
-            guard let beatsPerMinute = bpm else {
-                throw Error.illFormedTempo(yaml)
-            }
-            
-            let tempo = Tempo(beatsPerMinute, subdivision: subdivision)
-            let interpolating = key == "tempo_change"
-            return (tempo, interpolating)
-        }
-        
-        return nil
-    }
-    
-    // - TODO: Rename to findOffsetDuration
-    static func extractOffsetDuration(from yaml: [String: Any], subdivision: Subdivision)
-        -> MetricalDuration?
-    {
-        for (key, _) in yaml {
-            if let meter = try? ScoreParser.parseMeter(key) {
-                return meter.metricalDuration
-            } else if let beats = Int(key) {
-                return MetricalDuration(beats, subdivision)
-            }
-        }
-        return nil
-    }
     
     private var meterOffset: MetricalDuration = .zero
     
@@ -174,13 +86,13 @@ class ScoreParser {
     // - FIXME: This requires some beautification.
     func parseScoreElementWithAttributes(_ yaml: [String: Any]) throws {
         
-        guard let meter = ScoreParser.extractMeter(from: yaml) else {
+        guard let meter = extractMeter(from: yaml) else {
             throw Error.illFormedScoreElement(yaml)
         }
 
         var tempoChanges: [(Tempo, MetricalDuration, Bool)] = []
 
-        if let (downbeatTempo, interpolating) = try ScoreParser.extractTempo(
+        if let (downbeatTempo, interpolating) = try extractTempo(
             from: yaml,
             subdivision: meter.denominator
         )
@@ -188,7 +100,7 @@ class ScoreParser {
             tempoChanges.append((downbeatTempo, meterOffset, interpolating))
         }
 
-        // TODO: break up at each stage of organization
+        // TODO: Break up at each stage of organization
         for (_, value) in yaml {
             
             if let offsetAttributes = value as? [[String: Any]] {
@@ -196,7 +108,7 @@ class ScoreParser {
                 for offsetAttribute in offsetAttributes {
                     
                     guard
-                        let beatOffset = ScoreParser.extractOffsetDuration(
+                        let beatOffset = extractOffsetDuration(
                             from: offsetAttribute,
                             subdivision: meter.denominator
                         )
@@ -204,7 +116,7 @@ class ScoreParser {
                         throw Error.illFormedScoreElement(yaml)
                     }
                     
-                    if let (offsetTempo, interpolating) = try ScoreParser.extractTempo(
+                    if let (offsetTempo, interpolating) = try extractTempo(
                         from: offsetAttribute,
                         subdivision: meter.denominator
                     )
@@ -228,11 +140,11 @@ class ScoreParser {
         
         // Single meter, such as: 19/64
         case 1:
-            add(meter: try ScoreParser.parseMeter(string))
+            add(meter: try parseMeter(string))
             
         // Many meters (e.g., 4/4 x 13)
         case 3:
-            let meter = try ScoreParser.parseMeter(components[0])
+            let meter = try parseMeter(components[0])
             guard let count = Int(components[2]) else { throw Error.illFormedMeter(string) }
             add(meter: meter, count: count)
             
@@ -253,4 +165,93 @@ class ScoreParser {
         tempoStratumBuilder.add(tempo, at: offset, interpolating: interpolating)
     }
 }
+
+/// Creates `Meter` value with the given `string`.
+///
+/// The string must be in the format: `beats / subdivision`.
+///
+///     3/4 -> Meter(3,4)
+///     12/13 -> fatalError
+///     3,4 -> Error.illFormedMeter
+///
+///
+/// - Returns: Meter value
+/// - Throws: ScoreParser.Error
+/// - Warning: The Meter initializer will crash if given a non-power-of-two subdivision.
+internal func parseMeter(_ string: String) throws -> Meter {
+    
+    let components = string.components(separatedBy: "/")
+    
+    guard
+        let beatsString = components[safe: 0],
+        let subdivisionString = components[safe: 1],
+        let beats = Int(beatsString),
+        let subdivision = Int(subdivisionString)
+    else {
+        throw ScoreParser.Error.illFormedMeter(string)
+    }
+    
+    return Meter(beats, subdivision)
+}
+
+// TODO: Rename to findMeter?
+private func extractMeter(from yaml: [String: Any]) -> Meter? {
+    
+    for (key, _) in yaml {
+        if let meter = try? parseMeter(key) {
+            return meter
+        }
+    }
+    
+    return nil
+}
+
+// TODO: Rename to findTempo?
+private func extractTempo(from yaml: [String: Any], subdivision: Subdivision)
+    throws -> (Tempo, Bool)?
+{
+    
+    for (key, value) in yaml where key == "tempo" || key == "tempo_change" {
+        
+        var bpm: Double? {
+            switch value {
+            case let double as Double:
+                return double
+            case let float as Float:
+                return Double(float)
+            case let int as Int:
+                return Double(int)
+            case let string as String:
+                return Double(string)
+            default:
+                return nil
+            }
+        }
+        
+        guard let beatsPerMinute = bpm else {
+            throw ScoreParser.Error.illFormedTempo(yaml)
+        }
+        
+        let tempo = Tempo(beatsPerMinute, subdivision: subdivision)
+        let interpolating = key == "tempo_change"
+        return (tempo, interpolating)
+    }
+    
+    return nil
+}
+
+// - TODO: Rename to findOffsetDuration
+private func extractOffsetDuration(from yaml: [String: Any], subdivision: Subdivision)
+    -> MetricalDuration?
+{
+    for key in yaml.keys {
+        if let meter = try? parseMeter(key) {
+            return meter.metricalDuration
+        } else if let beats = Int(key) {
+            return MetricalDuration(beats, subdivision)
+        }
+    }
+    return nil
+}
+
 

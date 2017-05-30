@@ -18,7 +18,7 @@ class ScoreParserTests: XCTestCase {
         let expected = [Meter(4,4), Meter(9,16), Meter(13,128)]
         
         zip(strings, expected).forEach { string, meter in
-            XCTAssertEqual(try! ScoreParser.parseMeter(string), meter)
+            XCTAssertEqual(try! parseMeter(string), meter)
         }
     }
     
