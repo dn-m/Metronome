@@ -11,6 +11,7 @@ import Rhythm
 class ScoreParser {
     
     enum Error: Swift.Error {
+        case illFormedScore(Any)
         case illFormedMeter(String)
     }
 
@@ -40,6 +41,46 @@ class ScoreParser {
         }
         
         return Meter(beats, subdivision)
+    }
+    
+    // TODO: Meter with multiplier
+    
+    /// Meters to be created during the parsing process
+    private var meters: [Meter] = []
+    
+    /// Builder to create the tempo stratum
+    private var tempoStratumBuilder = Tempo.Stratum.Builder()
+    
+    /// Data to be parsed
+    private let score: [Any]
+    
+    // MARK: - Initializers
+    
+    /// Creates a `ScoreParser` with the given `yaml` structure.
+    ///
+    /// - Throws: ScoreParser.Error if the given `yaml` is not a `[Any]`.
+    ///
+    public init(yaml: Any) throws {
+        
+        guard let yamlScore = yaml as? [Any] else {
+            throw Error.illFormedScore(yaml)
+        }
+
+        self.score = yamlScore
+    }
+    
+    func parse() throws -> Meter.Structure {
+        try score.forEach(parseScoreElement)
+
+        // let tempoStratum = tempoStratumBuilder.build()
+        // return Meter.Structure(meters: meters, tempi: tempoStratum)
+        
+        fatalError()
+    }
+    
+    func parseScoreElement(_ yaml: Any) throws {
+        
+        print("parse score element: \(yaml)")
     }
 }
 

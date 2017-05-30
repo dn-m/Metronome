@@ -8,6 +8,7 @@
 
 import XCTest
 import Rhythm
+import Yams
 @testable import Metronome
 
 class ScoreParserTests: XCTestCase {
@@ -19,5 +20,17 @@ class ScoreParserTests: XCTestCase {
         zip(strings, expected).forEach { string, meter in
             XCTAssertEqual(try! ScoreParser.parseMeter(string), meter)
         }
+    }
+    
+    func testParseIllFormedScore() {
+        let yamlString = "key: value"
+        let yaml = try! Yams.load(yaml: yamlString) as Any
+        XCTAssertThrowsError(try ScoreParser(yaml: yaml))
+    }
+    
+    func testParseMeters() {
+        let yamlString = "- 4/4\n- 9/16\n- 13/128"
+        let yaml = try! Yams.load(yaml: yamlString) as Any
+        
     }
 }
