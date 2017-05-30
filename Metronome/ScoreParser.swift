@@ -59,6 +59,60 @@ class ScoreParser {
         return nil
     }
     
+    
+    static func extractTempo(from yaml: [String: Any], subdivision: Subdivision)
+        throws -> (Tempo, Bool)?
+    {
+        
+        for (key, value) in yaml {
+            
+            switch key {
+            
+            case "tempo", "tempo_change":
+                
+                var bpm: Double? {
+                    switch value {
+                    case let double as Double:
+                        return double
+                    case let float as Float:
+                        return Double(float)
+                    case let int as Int:
+                        return Double(int)
+                    case let string as String:
+                        return Double(string)
+                    default:
+                        return nil
+                    }
+                }
+                
+                guard let beatsPerMinute = bpm else {
+                    throw Error.illFormedTempo(yaml)
+                }
+                
+                let tempo = Tempo(beatsPerMinute, subdivision: subdivision)
+                let interpolating = key == "tempo_change"
+                return (tempo, interpolating)
+                
+            default:
+                break
+            }
+        }
+        return nil
+    }
+    
+    static func extractOffsetDuration(from yaml: [String: Any], subdivision: Subdivision)
+        -> MetricalDuration?
+    {
+        for (key, _) in yaml {
+            if let meter = try? ScoreParser.parseMeter(key) {
+                return meter.metricalDuration
+            } else if let beats = Int(key) {
+                return MetricalDuration(beats, subdivision)
+            }
+        }
+        return nil
+    }
+    
     private var meterOffset: MetricalDuration = .zero
     
     /// Meters to be created during the parsing process
@@ -126,113 +180,47 @@ class ScoreParser {
         }
 
         var tempoChanges: [(Tempo, MetricalDuration, Bool)] = []
-        
-        print(yaml)
 
+        if let (downbeatTempo, interpolating) = try ScoreParser.extractTempo(
+            from: yaml,
+            subdivision: meter.denominator
+        )
+        {
+            tempoChanges.append((downbeatTempo, meterOffset, interpolating))
+        }
+        
         for (key, value) in yaml {
             
-            print("key: \(key); value: \(value)")
-            
-            switch key {
-            case "tempo", "tempo_change":
-                
-                var bpm: Double? {
-                    switch value {
-                    case let double as Double:
-                        return double
-                    case let float as Float:
-                        return Double(float)
-                    case let int as Int:
-                        return Double(int)
-                    case let string as String:
-                        return Double(string)
-                    default:
-                        return nil
-                    }
-                }
-                
-                guard let beatsPerMinute = bpm else {
-                    throw Error.illFormedScoreElement(yaml)
-                }
-                
-                let tempo = Tempo(beatsPerMinute, subdivision: meter.denominator)
-                let interpolating = key == "tempo_change"
-                
-                tempoChanges.append((tempo, meterOffset, interpolating))
-
-            default:
-                break
-            }
+            // TODO: Wrap up as method: exctractTempo(from yaml: [String: Any])
             
             if let offsetAttributes = value as? [[String: Any]] {
-                print("offset attr: \(offsetAttributes)")
-                
+
                 // FIXME: Manage duplication here
                 
+                // wrap up
                 for offsetAttribute in offsetAttributes {
                     
-                    var beatOffset: MetricalDuration = .zero
-                    var tempo: Tempo?
-                    var interpolation: Bool?
-                    
-                    for (key, val) in offsetAttribute {
-                        switch key {
-                        case "tempo", "tempo_change":
-                
-                            print("key: \(key) \(type(of: key)); value: \(val) \(type(of: val)); ")
-                            
-                            var bpm: Double? {
-                                switch val {
-                                case let double as Double:
-                                    return double
-                                case let float as Float:
-                                    return Double(float)
-                                case let int as Int:
-                                    return Double(int)
-                                case let string as String:
-                                    return Double(string)
-                                default:
-                                    return nil
-                                }
-                            }
-                            
-                            guard let beatsPerMinute = bpm else {
-                                print("bad bpm: \(bpm)")
-                                throw Error.illFormedScoreElement(yaml)
-                            }
-                            
-                            tempo = Tempo(beatsPerMinute, subdivision: meter.denominator)
-                            interpolation = key == "tempo_change"
-
-                            print("tempo: \(val)")
-                        default:
-                            
-                            // try meter
-                            if let meter = try? ScoreParser.parseMeter(key) {
-                                beatOffset = meter.metricalDuration
-                            } else if let beats = Int(key) {
-                                print("Beats: \(beats)")
-                                beatOffset = MetricalDuration(beats, meter.denominator)
-                            }
-                            
-                            break
-                        }
+                    guard
+                        let beatOffset = ScoreParser.extractOffsetDuration(
+                            from: offsetAttribute,
+                            subdivision: meter.denominator
+                        )
+                    else {
+                        throw Error.illFormedScoreElement(yaml)
                     }
                     
-                    if let tempo = tempo, let interpolation = interpolation {
-                        tempoChanges.append((tempo, meterOffset + beatOffset, interpolation))
+                    if let (offsetTempo, interpolating) = try ScoreParser.extractTempo(
+                        from: offsetAttribute,
+                        subdivision: meter.denominator
+                    )
+                    {
+                        tempoChanges.append((offsetTempo, meterOffset + beatOffset, interpolating))
                     }
                 }
             }
         }
         
-        print("tempo changes: \(tempoChanges)")
-        
-        tempoChanges.forEach { tempo, offset, interpolating in
-            add(tempo: tempo, at: offset, interpolating: interpolating)
-        }
-
-        print("meter: \(meter)")
+        tempoChanges.forEach(add)
         add(meter: meter)
     }
     
