@@ -65,6 +65,24 @@ class ScoreParserTests: XCTestCase {
         let yaml = try! Yams.load(yaml: yamlString) as Any
         let scoreParser = try! ScoreParser(yaml: yaml)
         let meterStructure = try! scoreParser.parse()
-        print(meterStructure)
+        // TODO: Assert
+    }
+    
+    func testParseMeterWithOffsetTempoBeats() {
+        let yamlString = "- 4/4:\n  - 3:\n    tempo: 120"
+        let yaml = try! Yams.load(yaml: yamlString) as Any
+        let scoreParser = try! ScoreParser(yaml: yaml)
+        do {
+            let meterStructure = try scoreParser.parse()
+            print(meterStructure)
+        } catch {
+            print(error)
+        }
+        
+        
+    }
+    
+    func testParseMeterWithOffsetTempoMetricalDuration() {
+        
     }
 }

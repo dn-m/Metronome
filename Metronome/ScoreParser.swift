@@ -48,10 +48,12 @@ class ScoreParser {
         return Meter(beats, subdivision)
     }
     
-    static func extractMeter(from yaml: [String: Any]) throws -> Meter? {
+    static func extractMeter(from yaml: [String: Any]) -> Meter? {
         
-        for (key, val) in yaml where val is NSNull {
-            return try parseMeter(key)
+        for (key, _) in yaml {
+            if let meter = try? parseMeter(key) {
+                return meter
+            }
         }
         
         return nil
@@ -95,6 +97,9 @@ class ScoreParser {
         try score.forEach(parseScoreElement)
 
         let tempoStratum = tempoStratumBuilder.build()
+        
+        print(tempoStratumBuilder)
+        
         return Meter.Structure(meters: meters, tempi: tempoStratum)
     }
     
@@ -116,20 +121,22 @@ class ScoreParser {
     
     func parseScoreElementWithAttributes(_ yaml: [String: Any]) throws {
         
-        guard let meter = try ScoreParser.extractMeter(from: yaml) else {
+        guard let meter = ScoreParser.extractMeter(from: yaml) else {
             throw Error.illFormedScoreElement(yaml)
         }
 
+        var tempoChanges: [(Tempo, MetricalDuration, Bool)] = []
+        
+        print(yaml)
+
         for (key, value) in yaml {
             
-            if let offsetAttributes = value as? [String: Any] {
-                print("traverse to get offset attributes")
-            }
+            print("key: \(key); value: \(value)")
             
             switch key {
-            case "tempo":
+            case "tempo", "tempo_change":
                 
-                var beatsPerMinute: Double? {
+                var bpm: Double? {
                     switch value {
                     case let double as Double:
                         return double
@@ -144,29 +151,90 @@ class ScoreParser {
                     }
                 }
                 
-                guard let bpm = beatsPerMinute else {
-                    throw Error.illFormedTempo(value)
+                guard let beatsPerMinute = bpm else {
+                    throw Error.illFormedScoreElement(yaml)
                 }
                 
-                let tempo = Tempo(bpm, subdivision: meter.denominator)
-                add(tempo: tempo, at: meterOffset)
+                let tempo = Tempo(beatsPerMinute, subdivision: meter.denominator)
+                let interpolating = key == "tempo_change"
                 
-            case "tempo_change":
-                print("tempo change on downbeat: \(key)")
+                tempoChanges.append((tempo, meterOffset, interpolating))
+
             default:
                 break
             }
+            
+            if let offsetAttributes = value as? [[String: Any]] {
+                print("offset attr: \(offsetAttributes)")
+                
+                // FIXME: Manage duplication here
+                
+                for offsetAttribute in offsetAttributes {
+                    
+                    var beatOffset: MetricalDuration = .zero
+                    var tempo: Tempo?
+                    var interpolation: Bool?
+                    
+                    for (key, val) in offsetAttribute {
+                        switch key {
+                        case "tempo", "tempo_change":
+                
+                            print("key: \(key) \(type(of: key)); value: \(val) \(type(of: val)); ")
+                            
+                            var bpm: Double? {
+                                switch val {
+                                case let double as Double:
+                                    return double
+                                case let float as Float:
+                                    return Double(float)
+                                case let int as Int:
+                                    return Double(int)
+                                case let string as String:
+                                    return Double(string)
+                                default:
+                                    return nil
+                                }
+                            }
+                            
+                            guard let beatsPerMinute = bpm else {
+                                print("bad bpm: \(bpm)")
+                                throw Error.illFormedScoreElement(yaml)
+                            }
+                            
+                            tempo = Tempo(beatsPerMinute, subdivision: meter.denominator)
+                            interpolation = key == "tempo_change"
+
+                            print("tempo: \(val)")
+                        default:
+                            
+                            // try meter
+                            if let meter = try? ScoreParser.parseMeter(key) {
+                                beatOffset = meter.metricalDuration
+                            } else if let beats = Int(key) {
+                                print("Beats: \(beats)")
+                                beatOffset = MetricalDuration(beats, meter.denominator)
+                            }
+                            
+                            break
+                        }
+                    }
+                    
+                    if let tempo = tempo, let interpolation = interpolation {
+                        tempoChanges.append((tempo, meterOffset + beatOffset, interpolation))
+                    }
+                }
+            }
         }
         
-        // 4/4:
-        //  offset, or
-        // 4/4:
-        // tempo:
+        print("tempo changes: \(tempoChanges)")
         
+        tempoChanges.forEach { tempo, offset, interpolating in
+            add(tempo: tempo, at: offset, interpolating: interpolating)
+        }
+
+        print("meter: \(meter)")
         add(meter: meter)
     }
-    
-    
     
     func parseMeterOneOrMany(_ string: String) throws {
         
@@ -202,8 +270,8 @@ class ScoreParser {
         }
     }
     
-    private func add(tempo: Tempo, at offset: MetricalDuration) {
-        tempoStratumBuilder.add(tempo, at: offset)
+    private func add(tempo: Tempo, at offset: MetricalDuration, interpolating: Bool) {
+        tempoStratumBuilder.add(tempo, at: offset, interpolating: interpolating)
     }
 }
 
