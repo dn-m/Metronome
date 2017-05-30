@@ -27,6 +27,12 @@ class TempoMetronomeViewController: UIViewController {
         return label
     }()
     
+    lazy var startStopButton: UISwitch = {
+        let toggle = UISwitch()
+        toggle.addTarget(self, action: #selector(didUpdateSwitch), for: .valueChanged)
+        return toggle
+    }()
+    
     var timeline = Timeline()
     
     override func viewDidLoad() {
@@ -55,6 +61,7 @@ class TempoMetronomeViewController: UIViewController {
         
         stackView.addArrangedSubview(slider)
         stackView.addArrangedSubview(tempoValueLabel)
+        stackView.addArrangedSubview(startStopButton)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackView)
@@ -120,6 +127,10 @@ class TempoMetronomeViewController: UIViewController {
         view.addConstraint(stackViewTrailingConstraint)
     }
     
+    func didUpdateSwitch(_ toggle: UISwitch) {
+        toggle.isOn ? timeline.resume() : timeline.pause()
+    }
+    
     func didUpdateTempoSlider(_ slider: UISlider) {
         
         // 24 -> 240 bpm
@@ -140,7 +151,7 @@ class TempoMetronomeViewController: UIViewController {
     func on() {
         DispatchQueue.main.async {
             self.view.layer.borderWidth = 4
-            self.view.layer.borderColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5).cgColor
+            self.view.layer.borderColor = UIColor(white: 1, alpha: 0.5).cgColor
         }
     }
     
