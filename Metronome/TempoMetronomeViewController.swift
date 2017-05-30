@@ -139,6 +139,8 @@ class TempoMetronomeViewController: UIViewController {
     
     func blink() {
         
+        Click.downbeat.play()
+        
         on()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

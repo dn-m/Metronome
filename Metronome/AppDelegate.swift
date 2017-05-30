@@ -7,18 +7,38 @@
 //
 
 import UIKit
+import AudioKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        configureAudio()
+        presentMetronomeSelectorTabBarController()
+        return true
+    }
+    
+    func configureAudio() {
+    
+        let highClick = try! AKAudioFile(readFileName: "LogicHigh.wav")
+        let lowClick = try! AKAudioFile(readFileName: "LogicLow.wav")
+        
+        try! Click.downbeat.loadAudioFile(highClick)
+        try! Click.upbeat.loadAudioFile(lowClick)
 
+        AudioKit.output = AKMixer(Click.downbeat, Click.upbeat)
+        AudioKit.start()
+    }
+    
+    func presentMetronomeSelectorTabBarController() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = MetronomeSelectorTabBarController()
-        self.window?.makeKeyAndVisible()        
-        return true
+        self.window?.makeKeyAndVisible()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

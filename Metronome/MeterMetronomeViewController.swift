@@ -59,7 +59,6 @@ class MeterMetronomeViewController: UIViewController {
             performingOnDownbeat: { _ in self.onDownbeat() },
             performingOnUpbeat: { _ in self.onUpbeat() }
         )
-        //timeline = Timeline.metronome(tempo: Tempo(60), performing: self.blink)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -158,10 +157,12 @@ class MeterMetronomeViewController: UIViewController {
     }
     
     func onDownbeat() {
+        Click.downbeat.play()
         blink(color: UIColor(white: 1, alpha: 0.66))
     }
     
     func onUpbeat() {
+        Click.upbeat.play()
         blink(color: UIColor(white: 1, alpha: 0.33))
     }
     

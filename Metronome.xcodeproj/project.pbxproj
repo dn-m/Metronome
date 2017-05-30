@@ -11,6 +11,13 @@
 		072239841EDD6D3A002E3418 /* TempoMetronomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072239831EDD6D3A002E3418 /* TempoMetronomeViewController.swift */; };
 		072239861EDD6D5B002E3418 /* MeterMetronomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072239851EDD6D5B002E3418 /* MeterMetronomeViewController.swift */; };
 		072239881EDD6D72002E3418 /* ScoreMetronomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072239871EDD6D72002E3418 /* ScoreMetronomeViewController.swift */; };
+		072239901EDDD549002E3418 /* Click.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0722398F1EDDD549002E3418 /* Click.swift */; };
+		072239941EDDD695002E3418 /* Clave.wav in Resources */ = {isa = PBXBuildFile; fileRef = 072239921EDDD695002E3418 /* Clave.wav */; };
+		072239951EDDD695002E3418 /* Tambourine.wav in Resources */ = {isa = PBXBuildFile; fileRef = 072239931EDDD695002E3418 /* Tambourine.wav */; };
+		072239981EDDD6CE002E3418 /* PingHigh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 072239961EDDD6CE002E3418 /* PingHigh.wav */; };
+		072239991EDDD6CE002E3418 /* PingLow.wav in Resources */ = {isa = PBXBuildFile; fileRef = 072239971EDDD6CE002E3418 /* PingLow.wav */; };
+		0722399C1EDDD6FC002E3418 /* LogicHigh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0722399A1EDDD6FC002E3418 /* LogicHigh.wav */; };
+		0722399D1EDDD6FC002E3418 /* LogicLow.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0722399B1EDDD6FC002E3418 /* LogicLow.wav */; };
 		072C0D041EDD5622002306BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C0D031EDD5622002306BF /* AppDelegate.swift */; };
 		072C0D0B1EDD5622002306BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 072C0D0A1EDD5622002306BF /* Assets.xcassets */; };
 		072C0D0E1EDD5622002306BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 072C0D0C1EDD5622002306BF /* LaunchScreen.storyboard */; };
@@ -69,6 +76,13 @@
 		072239831EDD6D3A002E3418 /* TempoMetronomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoMetronomeViewController.swift; sourceTree = "<group>"; };
 		072239851EDD6D5B002E3418 /* MeterMetronomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeterMetronomeViewController.swift; sourceTree = "<group>"; };
 		072239871EDD6D72002E3418 /* ScoreMetronomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreMetronomeViewController.swift; sourceTree = "<group>"; };
+		0722398F1EDDD549002E3418 /* Click.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Click.swift; sourceTree = "<group>"; };
+		072239921EDDD695002E3418 /* Clave.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Clave.wav; sourceTree = "<group>"; };
+		072239931EDDD695002E3418 /* Tambourine.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tambourine.wav; sourceTree = "<group>"; };
+		072239961EDDD6CE002E3418 /* PingHigh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PingHigh.wav; sourceTree = "<group>"; };
+		072239971EDDD6CE002E3418 /* PingLow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PingLow.wav; sourceTree = "<group>"; };
+		0722399A1EDDD6FC002E3418 /* LogicHigh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = LogicHigh.wav; sourceTree = "<group>"; };
+		0722399B1EDDD6FC002E3418 /* LogicLow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = LogicLow.wav; sourceTree = "<group>"; };
 		072C0D001EDD5622002306BF /* Metronome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metronome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		072C0D031EDD5622002306BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		072C0D0A1EDD5622002306BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -139,6 +153,28 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
+		0722398A1EDDD43A002E3418 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				072239911EDDD5FF002E3418 /* Assets */,
+				0722398F1EDDD549002E3418 /* Click.swift */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
+		072239911EDDD5FF002E3418 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				072239921EDDD695002E3418 /* Clave.wav */,
+				072239931EDDD695002E3418 /* Tambourine.wav */,
+				072239961EDDD6CE002E3418 /* PingHigh.wav */,
+				072239971EDDD6CE002E3418 /* PingLow.wav */,
+				0722399A1EDDD6FC002E3418 /* LogicHigh.wav */,
+				0722399B1EDDD6FC002E3418 /* LogicLow.wav */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		072C0CF71EDD5622002306BF = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +197,7 @@
 		072C0D021EDD5622002306BF /* Metronome */ = {
 			isa = PBXGroup;
 			children = (
+				0722398A1EDDD43A002E3418 /* Audio */,
 				072239891EDD6D93002E3418 /* View Controllers */,
 				072C0D031EDD5622002306BF /* AppDelegate.swift */,
 				072C0D0A1EDD5622002306BF /* Assets.xcassets */,
@@ -266,8 +303,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0722399D1EDDD6FC002E3418 /* LogicLow.wav in Resources */,
+				072239951EDDD695002E3418 /* Tambourine.wav in Resources */,
+				072239981EDDD6CE002E3418 /* PingHigh.wav in Resources */,
 				072C0D0E1EDD5622002306BF /* LaunchScreen.storyboard in Resources */,
+				072239941EDDD695002E3418 /* Clave.wav in Resources */,
 				072C0D0B1EDD5622002306BF /* Assets.xcassets in Resources */,
+				0722399C1EDDD6FC002E3418 /* LogicHigh.wav in Resources */,
+				072239991EDDD6CE002E3418 /* PingLow.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +353,7 @@
 			files = (
 				072239881EDD6D72002E3418 /* ScoreMetronomeViewController.swift in Sources */,
 				072239821EDD6C60002E3418 /* MetronomeSelectorTabBarController.swift in Sources */,
+				072239901EDDD549002E3418 /* Click.swift in Sources */,
 				072C0D041EDD5622002306BF /* AppDelegate.swift in Sources */,
 				072239841EDD6D3A002E3418 /* TempoMetronomeViewController.swift in Sources */,
 				072239861EDD6D5B002E3418 /* MeterMetronomeViewController.swift in Sources */,
