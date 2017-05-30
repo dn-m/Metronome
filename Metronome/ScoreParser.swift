@@ -6,6 +6,8 @@
 //  Copyright © 2017 James Bean. All rights reserved.
 //
 
+import Foundation
+import ArithmeticTools
 import Rhythm
 
 class ScoreParser {
@@ -13,7 +15,9 @@ class ScoreParser {
     /// Things that can go wrong when parsing a score.
     enum Error: Swift.Error {
         case illFormedScore(Any)
+        case illFormedScoreElement(Any)
         case illFormedMeter(String)
+        case illFormedTempo(Any)
     }
 
     /// Creates `Meter` value with the given `string`. 
@@ -44,6 +48,17 @@ class ScoreParser {
         return Meter(beats, subdivision)
     }
     
+    static func extractMeter(from yaml: [String: Any]) throws -> Meter? {
+        
+        for (key, val) in yaml where val is NSNull {
+            return try parseMeter(key)
+        }
+        
+        return nil
+    }
+    
+    private var meterOffset: MetricalDuration = .zero
+    
     /// Meters to be created during the parsing process
     internal var meters: [Meter] = []
     
@@ -68,19 +83,22 @@ class ScoreParser {
         self.score = yamlScore
     }
     
+    private func prepare() {
+        meterOffset = .zero
+        meters = []
+        tempoStratumBuilder = Tempo.Stratum.Builder()
+    }
+    
     func parse() throws -> Meter.Structure {
 
+        prepare()
         try score.forEach(parseScoreElement)
 
-        // let tempoStratum = tempoStratumBuilder.build()
-        // return Meter.Structure(meters: meters, tempi: tempoStratum)
-
-        return Meter.Structure()
+        let tempoStratum = tempoStratumBuilder.build()
+        return Meter.Structure(meters: meters, tempi: tempoStratum)
     }
     
     func parseScoreElement(_ yaml: Any) throws {
-        
-        print("parse score element: \(yaml)")
         
         if let meter = yaml as? String {
             
@@ -88,14 +106,68 @@ class ScoreParser {
             // 4/4 x 8
             try parseMeterOneOrMany(meter)
             
-        } else {
+        } else if let scoreElementWithAttributes = yaml as? [String: Any] {
+            try parseScoreElementWithAttributes(scoreElementWithAttributes)
             
-            // 4/4:
-            //  offset, or
-            // 4/4:
-            // tempo:
+        } else {
+            throw Error.illFormedScoreElement(yaml)
         }
     }
+    
+    func parseScoreElementWithAttributes(_ yaml: [String: Any]) throws {
+        
+        guard let meter = try ScoreParser.extractMeter(from: yaml) else {
+            throw Error.illFormedScoreElement(yaml)
+        }
+
+        for (key, value) in yaml {
+            
+            if let offsetAttributes = value as? [String: Any] {
+                print("traverse to get offset attributes")
+            }
+            
+            switch key {
+            case "tempo":
+                print("tempo on downbeat: \(key); type: \(type(of: value))")
+                
+                var beatsPerMinute: Double? {
+                    switch value {
+                    case let double as Double:
+                        return double
+                    case let float as Float:
+                        return Double(float)
+                    case let int as Int:
+                        return Double(int)
+                    case let string as String:
+                        return Double(string)
+                    default:
+                        return nil
+                    }
+                }
+                
+                guard let bpm = beatsPerMinute else {
+                    throw Error.illFormedTempo(value)
+                }
+                
+                let tempo = Tempo(bpm, subdivision: meter.denominator)
+                add(tempo: tempo, at: meterOffset)
+                
+            case "tempo_change":
+                print("tempo change on downbeat: \(key)")
+            default:
+                break
+            }
+        }
+        
+        // 4/4:
+        //  offset, or
+        // 4/4:
+        // tempo:
+        
+        add(meter: meter)
+    }
+    
+    
     
     func parseMeterOneOrMany(_ string: String) throws {
         
@@ -125,7 +197,14 @@ class ScoreParser {
     }
     
     private func add(meter: Meter, count: Int = 1) {
-        (0..<count).forEach { _ in self.meters.append(meter) }
+        (0..<count).forEach { _ in
+            self.meters.append(meter)
+            self.meterOffset += meter.metricalDuration
+        }
+    }
+    
+    private func add(tempo: Tempo, at offset: MetricalDuration) {
+        tempoStratumBuilder.add(tempo, at: offset)
     }
 }
 
