@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		072239821EDD6C60002E3418 /* MetronomeSelectorTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072239811EDD6C60002E3418 /* MetronomeSelectorTabBarController.swift */; };
+		072239841EDD6D3A002E3418 /* TempoMetronomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072239831EDD6D3A002E3418 /* TempoMetronomeViewController.swift */; };
+		072239861EDD6D5B002E3418 /* MeterMetronomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072239851EDD6D5B002E3418 /* MeterMetronomeViewController.swift */; };
+		072239881EDD6D72002E3418 /* ScoreMetronomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072239871EDD6D72002E3418 /* ScoreMetronomeViewController.swift */; };
 		072C0D041EDD5622002306BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C0D031EDD5622002306BF /* AppDelegate.swift */; };
-		072C0D061EDD5622002306BF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C0D051EDD5622002306BF /* ViewController.swift */; };
-		072C0D091EDD5622002306BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 072C0D071EDD5622002306BF /* Main.storyboard */; };
 		072C0D0B1EDD5622002306BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 072C0D0A1EDD5622002306BF /* Assets.xcassets */; };
 		072C0D0E1EDD5622002306BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 072C0D0C1EDD5622002306BF /* LaunchScreen.storyboard */; };
 		072C0D191EDD5622002306BF /* MetronomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C0D181EDD5622002306BF /* MetronomeTests.swift */; };
@@ -63,10 +65,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		072239811EDD6C60002E3418 /* MetronomeSelectorTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetronomeSelectorTabBarController.swift; sourceTree = "<group>"; };
+		072239831EDD6D3A002E3418 /* TempoMetronomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoMetronomeViewController.swift; sourceTree = "<group>"; };
+		072239851EDD6D5B002E3418 /* MeterMetronomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeterMetronomeViewController.swift; sourceTree = "<group>"; };
+		072239871EDD6D72002E3418 /* ScoreMetronomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreMetronomeViewController.swift; sourceTree = "<group>"; };
 		072C0D001EDD5622002306BF /* Metronome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metronome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		072C0D031EDD5622002306BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		072C0D051EDD5622002306BF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		072C0D081EDD5622002306BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		072C0D0A1EDD5622002306BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		072C0D0D1EDD5622002306BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		072C0D0F1EDD5622002306BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -124,6 +128,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		072239891EDD6D93002E3418 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				072239811EDD6C60002E3418 /* MetronomeSelectorTabBarController.swift */,
+				072239831EDD6D3A002E3418 /* TempoMetronomeViewController.swift */,
+				072239851EDD6D5B002E3418 /* MeterMetronomeViewController.swift */,
+				072239871EDD6D72002E3418 /* ScoreMetronomeViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		072C0CF71EDD5622002306BF = {
 			isa = PBXGroup;
 			children = (
@@ -146,9 +161,8 @@
 		072C0D021EDD5622002306BF /* Metronome */ = {
 			isa = PBXGroup;
 			children = (
+				072239891EDD6D93002E3418 /* View Controllers */,
 				072C0D031EDD5622002306BF /* AppDelegate.swift */,
-				072C0D051EDD5622002306BF /* ViewController.swift */,
-				072C0D071EDD5622002306BF /* Main.storyboard */,
 				072C0D0A1EDD5622002306BF /* Assets.xcassets */,
 				072C0D0C1EDD5622002306BF /* LaunchScreen.storyboard */,
 				072C0D0F1EDD5622002306BF /* Info.plist */,
@@ -254,7 +268,6 @@
 			files = (
 				072C0D0E1EDD5622002306BF /* LaunchScreen.storyboard in Resources */,
 				072C0D0B1EDD5622002306BF /* Assets.xcassets in Resources */,
-				072C0D091EDD5622002306BF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,8 +308,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				072C0D061EDD5622002306BF /* ViewController.swift in Sources */,
+				072239881EDD6D72002E3418 /* ScoreMetronomeViewController.swift in Sources */,
+				072239821EDD6C60002E3418 /* MetronomeSelectorTabBarController.swift in Sources */,
 				072C0D041EDD5622002306BF /* AppDelegate.swift in Sources */,
+				072239841EDD6D3A002E3418 /* TempoMetronomeViewController.swift in Sources */,
+				072239861EDD6D5B002E3418 /* MeterMetronomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,14 +335,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		072C0D071EDD5622002306BF /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				072C0D081EDD5622002306BF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		072C0D0C1EDD5622002306BF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

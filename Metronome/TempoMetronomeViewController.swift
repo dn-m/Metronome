@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TempoMetronomeViewController.swift
 //  Metronome
 //
 //  Created by James Bean on 5/30/17.
@@ -7,14 +7,12 @@
 //
 
 import UIKit
-import Collections
-import ArithmeticTools
 import Rhythm
 import Timeline
 import MetronomeController
 
-class ViewController: UIViewController {
-
+class TempoMetronomeViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,7 +25,6 @@ class ViewController: UIViewController {
     
     func blink() {
         
-        print("blink")
         on()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -36,21 +33,14 @@ class ViewController: UIViewController {
     }
     
     func on() {
-        
         DispatchQueue.main.async {
             self.view.layer.backgroundColor = UIColor.black.cgColor
         }
     }
     
     func off() {
-        
         DispatchQueue.main.async {
             self.view.layer.backgroundColor = UIColor.white.cgColor
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
