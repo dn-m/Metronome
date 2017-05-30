@@ -37,9 +37,7 @@ class TempoMetronomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         timeline = Timeline.metronome(tempo: Tempo(60), performing: self.blink)
-        timeline.start()
     }
     
     override func viewWillAppear(_ animated: Bool) {
